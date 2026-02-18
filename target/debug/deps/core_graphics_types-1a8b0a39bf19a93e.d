@@ -1,0 +1,7 @@
+/Users/alexharvey/development/logs-parser/target/debug/deps/core_graphics_types-1a8b0a39bf19a93e.d: /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/core-graphics-types-0.2.0/src/lib.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/core-graphics-types-0.2.0/src/base.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/core-graphics-types-0.2.0/src/geometry.rs
+
+/Users/alexharvey/development/logs-parser/target/debug/deps/libcore_graphics_types-1a8b0a39bf19a93e.rmeta: /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/core-graphics-types-0.2.0/src/lib.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/core-graphics-types-0.2.0/src/base.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/core-graphics-types-0.2.0/src/geometry.rs
+
+/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/core-graphics-types-0.2.0/src/lib.rs:
+/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/core-graphics-types-0.2.0/src/base.rs:
+/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/core-graphics-types-0.2.0/src/geometry.rs:

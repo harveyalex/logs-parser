@@ -1,0 +1,1 @@
+Callback<dioxus::prelude::Event<MouseData>>: SuperFrom<{closure@src/desktop/main.rs:128:24: 128:32}, _>

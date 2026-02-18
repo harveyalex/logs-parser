@@ -1,0 +1,7 @@
+/Users/alexharvey/development/logs-parser/target/debug/deps/cocoa_foundation-b16d45b7ddb8fa8a.d: /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/cocoa-foundation-0.1.2/src/lib.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/cocoa-foundation-0.1.2/src/base.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/cocoa-foundation-0.1.2/src/foundation.rs
+
+/Users/alexharvey/development/logs-parser/target/debug/deps/libcocoa_foundation-b16d45b7ddb8fa8a.rmeta: /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/cocoa-foundation-0.1.2/src/lib.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/cocoa-foundation-0.1.2/src/base.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/cocoa-foundation-0.1.2/src/foundation.rs
+
+/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/cocoa-foundation-0.1.2/src/lib.rs:
+/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/cocoa-foundation-0.1.2/src/base.rs:
+/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/cocoa-foundation-0.1.2/src/foundation.rs:

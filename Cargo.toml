@@ -1,0 +1,31 @@
+[package]
+name = "logs-parser"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "logs-parser-tui"
+path = "src/main.rs"
+
+[[bin]]
+name = "logs-parser-desktop"
+path = "src/desktop/main.rs"
+
+[dependencies]
+# TUI dependencies
+ratatui = "0.26"
+crossterm = { version = "0.27", features = ["event-stream"] }
+
+# Desktop dependencies
+dioxus = { version = "0.6", features = ["desktop"] }
+dioxus-desktop = "0.6"
+rfd = "0.15"
+
+# Shared dependencies
+tokio = { version = "1", features = ["full"] }
+futures = "0.3"
+regex = "1"
+chrono = "0.4"
+arboard = "3"
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }

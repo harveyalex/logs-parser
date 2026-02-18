@@ -1,0 +1,9 @@
+/Users/alexharvey/development/logs-parser/target/release/deps/clap-65393ca9fcbf5fce.d: /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/clap-4.5.59/src/lib.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/clap-4.5.59/src/../examples/demo.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/clap-4.5.59/src/../examples/demo.md
+
+/Users/alexharvey/development/logs-parser/target/release/deps/libclap-65393ca9fcbf5fce.rlib: /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/clap-4.5.59/src/lib.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/clap-4.5.59/src/../examples/demo.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/clap-4.5.59/src/../examples/demo.md
+
+/Users/alexharvey/development/logs-parser/target/release/deps/libclap-65393ca9fcbf5fce.rmeta: /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/clap-4.5.59/src/lib.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/clap-4.5.59/src/../examples/demo.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/clap-4.5.59/src/../examples/demo.md
+
+/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/clap-4.5.59/src/lib.rs:
+/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/clap-4.5.59/src/../examples/demo.rs:
+/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/clap-4.5.59/src/../examples/demo.md:
