@@ -18,11 +18,15 @@ fn gui_path() -> String {
     format!("/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:{}", base)
 }
 
-/// Find the heroku binary at known macOS install locations.
-/// Returns an absolute path if found, or "heroku" as fallback.
-/// This avoids relying on PATH resolution at spawn time, which uses the
-/// parent (GUI app) process's PATH rather than the augmented one we set.
+/// Find the heroku binary, returning an absolute path.
+///
+/// Strategy:
+/// 1. Check well-known install locations directly (fast, no subprocess).
+/// 2. Run `/usr/bin/which heroku` with an augmented PATH — uses the absolute
+///    path to `which` so we don't need PATH resolution to find `which` itself.
+/// 3. Fall back to "heroku" and hope the OS can resolve it.
 pub fn find_heroku_binary() -> String {
+    // 1. Static probe — covers Homebrew (Apple Silicon + Intel) and old Toolbelt.
     for path in &[
         "/opt/homebrew/bin/heroku",
         "/usr/local/bin/heroku",
@@ -32,6 +36,23 @@ pub fn find_heroku_binary() -> String {
             return path.to_string();
         }
     }
+
+    // 2. Ask `which` via its absolute path so the lookup is PATH-independent.
+    if let Ok(output) = std::process::Command::new("/usr/bin/which")
+        .env("PATH", gui_path())
+        .arg("heroku")
+        .output()
+    {
+        if output.status.success() {
+            let found = String::from_utf8_lossy(&output.stdout)
+                .trim()
+                .to_string();
+            if !found.is_empty() {
+                return found;
+            }
+        }
+    }
+
     "heroku".to_string()
 }
 
@@ -42,20 +63,15 @@ fn heroku_cmd() -> Command {
     c
 }
 
-/// Check if Heroku CLI is installed by probing known install paths.
+/// Check if Heroku CLI is installed.
+/// Uses find_heroku_binary() — if it resolves to anything other than the bare
+/// "heroku" fallback, we know heroku is present.
 pub async fn check_cli_installed() -> Result<bool> {
-    let known_paths = [
-        "/opt/homebrew/bin/heroku",
-        "/usr/local/bin/heroku",
-        "/usr/local/heroku/bin/heroku",
-    ];
-    if known_paths
-        .iter()
-        .any(|p| std::path::Path::new(p).exists())
-    {
+    let binary = find_heroku_binary();
+    if binary != "heroku" {
         return Ok(true);
     }
-    // Fallback: try running heroku via augmented PATH
+    // Last resort: try spawning heroku and see if it runs.
     Ok(heroku_cmd()
         .arg("version")
         .output()
