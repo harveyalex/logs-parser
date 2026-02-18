@@ -1,8 +1,0 @@
-/Users/alexharvey/development/logs-parser/target/release/deps/libpaste-d6e4b73f18019c75.dylib: /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/paste-1.0.15/src/lib.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/paste-1.0.15/src/attr.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/paste-1.0.15/src/error.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/paste-1.0.15/src/segment.rs
-
-/Users/alexharvey/development/logs-parser/target/release/deps/paste-d6e4b73f18019c75.d: /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/paste-1.0.15/src/lib.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/paste-1.0.15/src/attr.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/paste-1.0.15/src/error.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/paste-1.0.15/src/segment.rs
-
-/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/paste-1.0.15/src/lib.rs:
-/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/paste-1.0.15/src/attr.rs:
-/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/paste-1.0.15/src/error.rs:
-/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/paste-1.0.15/src/segment.rs:

@@ -1,9 +1,0 @@
-/Users/alexharvey/development/logs-parser/target/debug/deps/dioxus-040a9afd29f0668c.d: /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/dioxus-0.6.3/src/lib.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/dioxus-0.6.3/src/launch.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/dioxus-0.6.3/src/../README.md
-
-/Users/alexharvey/development/logs-parser/target/debug/deps/libdioxus-040a9afd29f0668c.rlib: /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/dioxus-0.6.3/src/lib.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/dioxus-0.6.3/src/launch.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/dioxus-0.6.3/src/../README.md
-
-/Users/alexharvey/development/logs-parser/target/debug/deps/libdioxus-040a9afd29f0668c.rmeta: /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/dioxus-0.6.3/src/lib.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/dioxus-0.6.3/src/launch.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/dioxus-0.6.3/src/../README.md
-
-/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/dioxus-0.6.3/src/lib.rs:
-/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/dioxus-0.6.3/src/launch.rs:
-/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/dioxus-0.6.3/src/../README.md:

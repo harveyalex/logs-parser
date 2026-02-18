@@ -1,7 +1,0 @@
-/Users/alexharvey/development/logs-parser/target/release/deps/foreign_types_macros-9b035c3a966ed60d.d: /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/foreign-types-macros-0.2.3/src/lib.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/foreign-types-macros-0.2.3/src/build.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/foreign-types-macros-0.2.3/src/parse.rs
-
-/Users/alexharvey/development/logs-parser/target/release/deps/libforeign_types_macros-9b035c3a966ed60d.dylib: /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/foreign-types-macros-0.2.3/src/lib.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/foreign-types-macros-0.2.3/src/build.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/foreign-types-macros-0.2.3/src/parse.rs
-
-/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/foreign-types-macros-0.2.3/src/lib.rs:
-/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/foreign-types-macros-0.2.3/src/build.rs:
-/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/foreign-types-macros-0.2.3/src/parse.rs:

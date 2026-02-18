@@ -1,9 +1,0 @@
-/Users/alexharvey/development/logs-parser/target/release/deps/libcassowary-e334dd165839e2dd.rmeta: /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/cassowary-0.3.0/src/lib.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/cassowary-0.3.0/src/solver_impl.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/cassowary-0.3.0/src/operators.rs
-
-/Users/alexharvey/development/logs-parser/target/release/deps/libcassowary-e334dd165839e2dd.rlib: /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/cassowary-0.3.0/src/lib.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/cassowary-0.3.0/src/solver_impl.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/cassowary-0.3.0/src/operators.rs
-
-/Users/alexharvey/development/logs-parser/target/release/deps/cassowary-e334dd165839e2dd.d: /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/cassowary-0.3.0/src/lib.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/cassowary-0.3.0/src/solver_impl.rs /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/cassowary-0.3.0/src/operators.rs
-
-/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/cassowary-0.3.0/src/lib.rs:
-/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/cassowary-0.3.0/src/solver_impl.rs:
-/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-6f17d22bba15001f/cassowary-0.3.0/src/operators.rs:

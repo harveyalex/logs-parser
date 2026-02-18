@@ -1,7 +1,0 @@
-/Users/alexharvey/development/logs-parser/target/release/deps/objc_exception-6a1b24f69a32f6f0.d: /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/objc_exception-0.1.2/src/lib.rs
-
-/Users/alexharvey/development/logs-parser/target/release/deps/libobjc_exception-6a1b24f69a32f6f0.rlib: /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/objc_exception-0.1.2/src/lib.rs
-
-/Users/alexharvey/development/logs-parser/target/release/deps/libobjc_exception-6a1b24f69a32f6f0.rmeta: /Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/objc_exception-0.1.2/src/lib.rs
-
-/Users/alexharvey/.local/share/mise/installs/rust/1.80.0/registry/src/index.crates.io-1949cf8c6b5b557f/objc_exception-0.1.2/src/lib.rs:
