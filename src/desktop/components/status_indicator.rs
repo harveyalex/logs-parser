@@ -16,33 +16,59 @@ pub enum ConnectionStatus {
 
 #[component]
 pub fn StatusIndicator(status: ConnectionStatus) -> Element {
-    let (color, text) = match &status {
-        ConnectionStatus::Loading => ("#ffa500", "Loading...".to_string()),
-        ConnectionStatus::Ready => ("#888", "Ready to connect".to_string()),
-        ConnectionStatus::Connecting => ("#ffa500", "Connecting...".to_string()),
-        ConnectionStatus::Streaming => ("#50c878", "Streaming".to_string()),
-        ConnectionStatus::Reconnecting(n) => {
-            ("#ffa500", format!("Reconnecting (attempt {}/5)...", n))
-        }
-        ConnectionStatus::NotAuthenticated => {
-            ("#ff4444", "Not logged in to Heroku".to_string())
-        }
-        ConnectionStatus::LoggingIn => ("#ffa500", "Logging in to Heroku...".to_string()),
-        ConnectionStatus::Error(msg) => ("#ff4444", msg.clone()),
+    let (text_class, dot_class, text) = match &status {
+        ConnectionStatus::Loading => (
+            "status-warning",
+            "status-dot status-dot-warning",
+            "Loading...".to_string(),
+        ),
+        ConnectionStatus::Ready => (
+            "status-dim",
+            "status-dot status-dot-dim",
+            "Ready to connect".to_string(),
+        ),
+        ConnectionStatus::Connecting => (
+            "status-warning",
+            "status-dot status-dot-warning",
+            "Connecting...".to_string(),
+        ),
+        ConnectionStatus::Streaming => (
+            "status-ok",
+            "status-dot status-dot-ok",
+            "Streaming".to_string(),
+        ),
+        ConnectionStatus::Reconnecting(n) => (
+            "status-warning",
+            "status-dot status-dot-warning",
+            format!("Reconnecting (attempt {}/5)...", n),
+        ),
+        ConnectionStatus::NotAuthenticated => (
+            "status-error",
+            "status-dot status-dot-error",
+            "Not logged in to Heroku".to_string(),
+        ),
+        ConnectionStatus::LoggingIn => (
+            "status-warning",
+            "status-dot status-dot-warning",
+            "Logging in to Heroku...".to_string(),
+        ),
+        ConnectionStatus::Error(msg) => (
+            "status-error",
+            "status-dot status-dot-error",
+            msg.clone(),
+        ),
     };
 
     rsx! {
         div {
-            style: "display: flex; align-items: center; gap: 8px; padding: 8px 16px; background: #2d2d2d; border-bottom: 1px solid #555;",
+            class: "toolbar-bar",
+            style: "display: flex; align-items: center; gap: 8px; padding: 8px 16px;",
 
-            // Status dot
-            div {
-                style: "width: 10px; height: 10px; border-radius: 50%; background: {color};",
-            }
+            div { class: "{dot_class}" }
 
-            // Status text
             span {
-                style: "color: {color}; font-size: 14px; font-weight: 500;",
+                class: "{text_class}",
+                style: "font-size: 14px; font-weight: 500;",
                 "{text}"
             }
         }
