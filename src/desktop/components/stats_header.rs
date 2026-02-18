@@ -1,39 +1,53 @@
-//! Header component showing log statistics
-
 use dioxus::prelude::*;
 
-#[derive(Props, Clone, PartialEq)]
-pub struct StatsHeaderProps {
-    pub total_logs: usize,
-    pub filtered_logs: usize,
-    pub paused: bool,
-    pub filter_mode_and: bool,
-}
-
 #[component]
-pub fn StatsHeader(props: StatsHeaderProps) -> Element {
-    let pause_text = if props.paused { "PAUSED" } else { "LIVE" };
-    let filter_mode = if props.filter_mode_and { "AND" } else { "OR" };
+pub fn StatsHeader(total_logs: usize, filtered_logs: usize, filter_mode_and: bool) -> Element {
+    let filter_text = if filter_mode_and { "AND" } else { "OR" };
 
     rsx! {
         div {
-            class: "stats-header",
-            style: "background: #2d2d2d; color: #ffffff; padding: 10px; display: flex; justify-content: space-between;",
+            style: "background: #1a1a1a; color: #fff; padding: 12px 16px; border-bottom: 2px solid #4a9eff; display: flex; justify-content: space-between; align-items: center;",
 
             div {
-                style: "font-weight: bold;",
-                "Heroku Logs Parser"
+                style: "display: flex; gap: 24px;",
+
+                div {
+                    span {
+                        style: "color: #888; font-size: 12px;",
+                        "Total Logs: "
+                    }
+                    span {
+                        style: "color: #4a9eff; font-weight: bold; font-size: 14px;",
+                        "{total_logs}"
+                    }
+                }
+
+                div {
+                    span {
+                        style: "color: #888; font-size: 12px;",
+                        "Filtered: "
+                    }
+                    span {
+                        style: "color: #50c878; font-weight: bold; font-size: 14px;",
+                        "{filtered_logs}"
+                    }
+                }
+
+                div {
+                    span {
+                        style: "color: #888; font-size: 12px;",
+                        "Filter Mode: "
+                    }
+                    span {
+                        style: "color: #ffa500; font-weight: bold; font-size: 14px;",
+                        "{filter_text}"
+                    }
+                }
             }
 
-            div {
-                style: "display: flex; gap: 20px;",
-                span { "Total: {props.total_logs}" }
-                span { "Filtered: {props.filtered_logs}" }
-                span {
-                    style: if props.paused { "color: #ff6b6b;" } else { "color: #51cf66;" },
-                    "{pause_text}"
-                }
-                span { "Filter Mode: {filter_mode}" }
+            h1 {
+                style: "margin: 0; font-size: 18px; font-weight: 600;",
+                "Heroku Logs Parser"
             }
         }
     }

@@ -14,7 +14,7 @@ pub struct FilterBarProps {
 
 #[component]
 pub fn FilterBar(props: FilterBarProps) -> Element {
-    let mut input_value = use_signal(|| String::new());
+    let mut input_value = use_signal(String::new);
     let filter_mode = if props.filter_mode_and { "AND" } else { "OR" };
 
     let on_input = move |evt: Event<FormData>| {

@@ -2861,6 +2861,8 @@ dependencies = [
  "ratatui",
  "regex",
  "rfd 0.15.4",
+ "serde",
+ "serde_json",
  "tokio",
 ]
 
