@@ -3,6 +3,8 @@
 use crate::heroku_cli::AppInfo;
 use dioxus::prelude::*;
 
+use super::custom_select::{CustomSelect, SelectOption};
+
 #[component]
 pub fn ConnectionPanel(
     available_apps: Vec<AppInfo>,
@@ -19,10 +21,21 @@ pub fn ConnectionPanel(
     on_cancel_login: EventHandler<()>,
     on_theme_change: EventHandler<String>,
 ) -> Element {
+    let app_options: Vec<SelectOption> = available_apps
+        .iter()
+        .map(|app| SelectOption::new(app.name.clone(), app.name.clone()))
+        .collect();
+
+    let theme_options = vec![
+        SelectOption::new("wmp", "🎵 WMP 2008"),
+        SelectOption::new("win2k", "🖥 Win2K High Contrast"),
+        SelectOption::new("win7", "🪟 Win7 Aero"),
+    ];
+
     rsx! {
         div {
             class: "toolbar-bar",
-            style: "padding: 12px 16px; display: flex; align-items: center; gap: 12px;",
+            style: "padding: 12px 16px; display: flex; align-items: center; gap: 12px; position: relative; z-index: 10;",
 
             if is_logging_in {
                 span {
@@ -49,24 +62,14 @@ pub fn ConnectionPanel(
                         "Heroku App"
                     }
 
-                    select {
-                        class: "themed-select",
+                    CustomSelect {
+                        options: app_options,
+                        value: selected_app.clone(),
+                        placeholder: "Select an app...".to_string(),
                         disabled: is_connected || is_connecting,
-                        onchange: move |evt| on_app_select.call(evt.value().clone()),
-
-                        option {
-                            value: "",
-                            selected: selected_app.is_none(),
-                            "Select an app..."
-                        }
-
-                        for app in available_apps {
-                            option {
-                                value: "{app.name}",
-                                selected: selected_app.as_ref() == Some(&app.name),
-                                "{app.name}"
-                            }
-                        }
+                        on_change: move |val: String| {
+                            on_app_select.call(val);
+                        },
                     }
                 }
 
@@ -101,15 +104,13 @@ pub fn ConnectionPanel(
                     "Theme:"
                 }
 
-                select {
-                    class: "themed-select",
-                    style: "padding: 6px 8px; font-size: 13px;",
-                    value: "{theme}",
-                    onchange: move |evt| on_theme_change.call(evt.value().clone()),
-
-                    option { value: "wmp",   selected: theme == "wmp",   "🎵 WMP 2008" }
-                    option { value: "win2k", selected: theme == "win2k", "🖥 Win2K High Contrast" }
-                    option { value: "win7",  selected: theme == "win7",  "🪟 Win7 Aero" }
+                CustomSelect {
+                    options: theme_options,
+                    value: Some(theme.clone()),
+                    placeholder: "Select theme...".to_string(),
+                    on_change: move |val: String| {
+                        on_theme_change.call(val);
+                    },
                 }
             }
         }

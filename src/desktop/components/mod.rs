@@ -1,6 +1,7 @@
 //! UI components for desktop app
 
 pub mod connection_panel;
+pub mod custom_select;
 pub mod filter_bar;
 pub mod log_view;
 pub mod stats_header;
