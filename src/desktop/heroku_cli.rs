@@ -25,15 +25,10 @@ fn cmd(program: &str) -> Command {
     c
 }
 
-/// Check if Heroku CLI is installed
+/// Check if Heroku CLI is installed by running `heroku version`.
 pub async fn check_cli_installed() -> Result<bool> {
-    let output = cmd("which")
-        .arg("heroku")
-        .output()
-        .await
-        .context("Failed to execute 'which' command")?;
-
-    Ok(output.status.success() && !output.stdout.is_empty())
+    let output = cmd("heroku").arg("version").output().await;
+    Ok(output.map(|o| o.status.success()).unwrap_or(false))
 }
 
 /// Check if user is authenticated with Heroku
@@ -80,9 +75,8 @@ pub async fn fetch_apps() -> Result<Vec<AppInfo>> {
 /// Opens the user's browser for OAuth. Returns the child process immediately
 /// — the caller is responsible for waiting on it.
 pub fn spawn_login() -> Result<tokio::process::Child> {
-    let mut c = Command::new("heroku");
-    c.env("PATH", gui_path());
-    c.arg("login")
+    cmd("heroku")
+        .arg("login")
         .spawn()
         .context("Failed to spawn 'heroku login'")
 }
