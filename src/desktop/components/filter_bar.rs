@@ -49,47 +49,50 @@ pub fn FilterBar(props: FilterBarProps) -> Element {
 
     rsx! {
         div {
-            class: "filter-bar",
-            style: "background: #3a3a3a; padding: 10px; border-bottom: 1px solid #555;",
+            class: "toolbar-bar filter-bar",
+            style: "padding: 10px;",
 
             div {
                 style: "display: flex; gap: 10px; align-items: center; margin-bottom: 10px;",
 
                 input {
                     r#type: "text",
+                    class: "themed-input",
                     value: "{input_value}",
                     placeholder: "Enter filter (text, dyno:web.1, source:app, level:error, /regex/)",
                     oninput: on_input,
                     onkeydown: on_key_press,
-                    style: "flex: 1; padding: 8px; background: #2d2d2d; border: 1px solid #555; color: #fff; border-radius: 4px;",
+                    style: "flex: 1;",
                 }
 
                 button {
+                    class: "btn btn-connect",
+                    style: "padding: 8px 16px;",
                     onclick: on_add_click,
-                    style: "padding: 8px 16px; background: #4a9eff; color: white; border: none; border-radius: 4px; cursor: pointer;",
                     "Add Filter"
                 }
 
                 button {
+                    class: "btn btn-disconnect",
+                    style: "padding: 8px 16px;",
                     onclick: on_clear_click,
-                    style: "padding: 8px 16px; background: #ff6b6b; color: white; border: none; border-radius: 4px; cursor: pointer;",
                     "Clear"
                 }
 
                 button {
+                    class: "btn btn-neutral",
+                    style: "padding: 8px 16px;",
                     onclick: on_toggle_click,
-                    style: "padding: 8px 16px; background: #51cf66; color: white; border: none; border-radius: 4px; cursor: pointer;",
                     "Toggle {filter_mode}"
                 }
             }
 
-            // Display active filters as tags
             if !props.filters.is_empty() {
                 div {
                     style: "display: flex; flex-wrap: wrap; gap: 8px;",
                     for filter in props.filters.iter() {
                         div {
-                            style: "background: #555; color: #fff; padding: 4px 12px; border-radius: 12px; font-size: 14px;",
+                            class: "filter-tag",
                             "{filter.display()}"
                         }
                     }
