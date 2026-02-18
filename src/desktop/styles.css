@@ -26,6 +26,7 @@
     --btn-shine:     linear-gradient(180deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 50%);
     --panel-shadow:  0 0 8px rgba(0,180,216,0.2), inset 0 1px 0 rgba(0,180,216,0.15);
     --panel-blur:    none;
+    --panel-bg:      transparent;
 }
 
 /* ── Win2K High Contrast ── */
@@ -49,6 +50,7 @@
     --btn-shine:     none;
     --panel-shadow:  none;
     --panel-blur:    none;
+    --panel-bg:      transparent;
 }
 
 /* ── Win7 Aero ── */
@@ -72,6 +74,7 @@
     --btn-shine:     none;
     --panel-shadow:  0 4px 16px rgba(0,80,200,0.25), inset 0 1px 0 rgba(255,255,255,0.12);
     --panel-blur:    blur(12px);
+    --panel-bg:      rgba(255,255,255,0.06);
 }
 
 /* ── App layout ── */
