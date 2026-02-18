@@ -1,14 +1,278 @@
+/* ── Reset ── */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* ── WMP 2008 (default) ── */
+.theme-wmp {
+    --bg-primary:    #080c14;
+    --bg-secondary:  #0d1520;
+    --bg-tertiary:   #060a10;
+    --border:        #1a3a5c;
+    --text-primary:  #e0e8f0;
+    --text-dim:      #5a7a9a;
+    --accent:        #00b4d8;
+    --accent-text:   #000;
+    --danger:        #ff4444;
+    --success:       #00d4aa;
+    --warning:       #ffa500;
+    --log-error-bg:  #1a0a0a;
+    --font-ui:       'Segoe UI', Arial, sans-serif;
+    --font-mono:     'Consolas', 'Courier New', monospace;
+    --radius:        2px;
+    --btn-gradient:  linear-gradient(180deg, #1a6a8a 0%, #0a3a5a 50%, #062a4a 100%);
+    --btn-shine:     linear-gradient(180deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 50%);
+    --panel-shadow:  0 0 8px rgba(0,180,216,0.2), inset 0 1px 0 rgba(0,180,216,0.15);
+    --panel-blur:    none;
+}
+
+/* ── Win2K High Contrast ── */
+.theme-win2k {
+    --bg-primary:    #000000;
+    --bg-secondary:  #000000;
+    --bg-tertiary:   #000000;
+    --border:        #ffffff;
+    --text-primary:  #ffffff;
+    --text-dim:      #ffffff;
+    --accent:        #ffff00;
+    --accent-text:   #000000;
+    --danger:        #ff0000;
+    --success:       #00ff00;
+    --warning:       #ffff00;
+    --log-error-bg:  #200000;
+    --font-ui:       'MS Sans Serif', 'Arial', sans-serif;
+    --font-mono:     'Courier New', monospace;
+    --radius:        0px;
+    --btn-gradient:  #000000;
+    --btn-shine:     none;
+    --panel-shadow:  none;
+    --panel-blur:    none;
+}
+
+/* ── Win7 Aero ── */
+.theme-win7 {
+    --bg-primary:    #1a2535;
+    --bg-secondary:  rgba(255,255,255,0.06);
+    --bg-tertiary:   rgba(0,0,0,0.4);
+    --border:        rgba(255,255,255,0.15);
+    --text-primary:  #ffffff;
+    --text-dim:      #a0b4c8;
+    --accent:        #3399ff;
+    --accent-text:   #ffffff;
+    --danger:        #ff5555;
+    --success:       #55cc88;
+    --warning:       #ffaa33;
+    --log-error-bg:  rgba(180,0,0,0.15);
+    --font-ui:       'Segoe UI', Arial, sans-serif;
+    --font-mono:     'Consolas', 'Courier New', monospace;
+    --radius:        6px;
+    --btn-gradient:  linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.04) 100%);
+    --btn-shine:     none;
+    --panel-shadow:  0 4px 16px rgba(0,80,200,0.25), inset 0 1px 0 rgba(255,255,255,0.12);
+    --panel-blur:    blur(12px);
+}
+
+/* ── App layout ── */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #080c14;
 }
 
 .app-container {
     width: 100%;
     height: 100vh;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-ui);
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Toolbar bars ── */
+.toolbar-bar {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--panel-shadow);
+    backdrop-filter: var(--panel-blur);
+}
+
+/* ── Buttons ── */
+.btn {
+    padding: 10px 20px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: var(--font-ui);
+    position: relative;
+    overflow: hidden;
+    transition: opacity 0.1s;
+    background: var(--btn-gradient);
+    color: var(--text-primary);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+/* WMP gloss */
+.theme-wmp .btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 50%;
+    background: var(--btn-shine);
+    pointer-events: none;
+    border-radius: var(--radius) var(--radius) 0 0;
+}
+
+/* Win2K 3D raised */
+.theme-win2k .btn {
+    border-top:    2px solid #ffffff;
+    border-left:   2px solid #ffffff;
+    border-bottom: 2px solid #808080;
+    border-right:  2px solid #808080;
+    border-radius: 0;
+}
+.theme-win2k .btn:active {
+    border-top:    2px solid #808080;
+    border-left:   2px solid #808080;
+    border-bottom: 2px solid #ffffff;
+    border-right:  2px solid #ffffff;
+}
+
+/* Win7 glass */
+.theme-win7 .btn {
+    backdrop-filter: blur(4px);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15);
+}
+
+/* Button colour variants */
+.btn-connect {
+    background: var(--btn-gradient);
+    color: var(--accent-text);
+    border-color: var(--accent);
+}
+.theme-win2k .btn-connect {
+    background: var(--accent);
+    color: var(--accent-text);
+}
+
+.btn-disconnect {
+    background: var(--danger);
+    color: #ffffff;
+    border-color: var(--danger);
+}
+.theme-win2k .btn-disconnect {
+    background: var(--bg-primary);
+    color: var(--danger);
+    border-color: var(--danger);
+}
+
+.btn-neutral {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border-color: var(--border);
+}
+
+/* ── Select / input ── */
+.themed-select,
+.themed-input {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    padding: 8px;
+    border-radius: var(--radius);
+    font-size: 14px;
+    font-family: var(--font-ui);
+}
+.themed-select:focus,
+.themed-input:focus {
+    outline: 1px solid var(--accent);
+}
+
+/* ── Log view ── */
+.log-view {
+    flex: 1;
+    overflow-y: auto;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 10px;
+}
+
+.log-view-empty {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    font-size: 16px;
+    background: var(--bg-tertiary);
+}
+
+.log-entry {
+    padding: 4px 0;
+}
+
+.log-entry-error {
+    background: var(--log-error-bg);
+}
+
+/* Log level colours */
+.level-error   { color: var(--danger);       font-weight: bold; }
+.level-warn    { color: var(--warning);      font-weight: bold; }
+.level-info    { color: var(--success);      font-weight: bold; }
+.level-debug   { color: var(--text-dim);     font-weight: bold; }
+.level-unknown { color: var(--text-primary); font-weight: bold; }
+
+/* Log field colours */
+.log-time   { color: var(--text-dim);  margin-right: 8px; }
+.log-source { color: var(--accent);    margin-right: 8px; }
+.log-dyno   { color: var(--success);   margin-right: 8px; }
+.log-msg    { color: var(--text-primary); }
+
+/* ── Status indicator ── */
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.status-dot-ok      { background: var(--success); }
+.status-dot-warning { background: var(--warning); }
+.status-dot-error   { background: var(--danger); }
+.status-dot-dim     { background: var(--text-dim); }
+
+.status-ok      { color: var(--success); }
+.status-warning { color: var(--warning); }
+.status-error   { color: var(--danger); }
+.status-dim     { color: var(--text-dim); }
+
+/* ── Filter tag ── */
+.filter-tag {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 14px;
+}
+
+/* ── Theme picker in toolbar ── */
+.theme-picker {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+}
+
+.theme-picker-label {
+    color: var(--text-dim);
+    font-size: 12px;
+    white-space: nowrap;
 }
