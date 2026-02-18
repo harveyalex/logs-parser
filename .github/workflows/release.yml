@@ -1,0 +1,50 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: macos-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo registry
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Install dioxus-cli
+        run: cargo install dioxus-cli
+
+      - name: Build app bundle and DMG
+        run: dx bundle --platform desktop --release
+
+      - name: Find DMG
+        id: dmg
+        run: |
+          DMG=$(find target/dx -name "*.dmg" | head -1)
+          echo "path=$DMG" >> "$GITHUB_OUTPUT"
+          echo "DMG path: $DMG"
+
+      - name: Rename DMG to stable filename
+        run: cp "${{ steps.dmg.outputs.path }}" logs-parser.dmg
+
+      - name: Compute SHA256
+        run: shasum -a 256 logs-parser.dmg
+
+      - name: Upload to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: logs-parser.dmg
