@@ -58,6 +58,29 @@ async fn init_heroku(
     }
 }
 
+fn theme_config_path() -> std::path::PathBuf {
+    let home = std::env::var("HOME").unwrap_or_else(|_| ".".to_string());
+    std::path::Path::new(&home)
+        .join(".config")
+        .join("logs-parser")
+        .join("theme")
+}
+
+fn read_theme() -> String {
+    std::fs::read_to_string(theme_config_path())
+        .unwrap_or_else(|_| "wmp".to_string())
+        .trim()
+        .to_string()
+}
+
+fn write_theme(theme: &str) {
+    let path = theme_config_path();
+    if let Some(parent) = path.parent() {
+        let _ = std::fs::create_dir_all(parent);
+    }
+    let _ = std::fs::write(path, theme);
+}
+
 fn main() {
     dioxus::launch(App);
 }
@@ -128,6 +151,7 @@ fn App() -> Element {
     let mut filter_mode_and = use_signal(|| true);
     let mut login_process =
         use_signal(|| None::<std::sync::Arc<tokio::sync::Mutex<tokio::process::Child>>>);
+    let mut theme = use_signal(read_theme);
 
     // Initialize: Check CLI and fetch apps
     use_effect(move || {
@@ -330,6 +354,11 @@ fn App() -> Element {
         filter_mode_and.set(!filter_mode_and());
     };
 
+    let on_theme_change = move |new_theme: String| {
+        write_theme(&new_theme);
+        theme.set(new_theme);
+    };
+
     let total_logs = all_logs().len();
     let filtered_count = filtered_logs().len();
     let is_connected = matches!(
@@ -344,8 +373,7 @@ fn App() -> Element {
         style { {include_str!("styles.css")} }
 
         div {
-            class: "app-container",
-            style: "display: flex; flex-direction: column; height: 100vh;",
+            class: format!("app-container theme-{}", theme()),
 
             // Status Indicator
             StatusIndicator {
@@ -365,6 +393,8 @@ fn App() -> Element {
                 on_disconnect: on_disconnect,
                 on_login: on_login,
                 on_cancel_login: on_cancel_login,
+                theme: theme(),
+                on_theme_change: on_theme_change,
             }
 
             // Stats Header
