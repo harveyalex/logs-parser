@@ -1,0 +1,26 @@
+name: Warm Build Cache
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  warm:
+    runs-on: macos-latest
+
+    steps:
+      - name: Cache dioxus-cli
+        id: cache-dx
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/bin/dx
+          key: ${{ runner.os }}-dioxus-cli-0.7.3
+
+      - name: Install Rust
+        if: steps.cache-dx.outputs.cache-hit != 'true'
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install dioxus-cli
+        if: steps.cache-dx.outputs.cache-hit != 'true'
+        run: cargo install dioxus-cli
