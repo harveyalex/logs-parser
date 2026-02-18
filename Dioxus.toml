@@ -1,0 +1,9 @@
+[application]
+name = "logs-parser"
+default_platform = "desktop"
+
+[bundle]
+identifier = "com.harveyalex.logs-parser"
+name = "Logs Parser"
+publisher = "Alex Harvey"
+short_description = "Stream and filter Heroku logs"
