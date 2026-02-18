@@ -8,6 +8,8 @@ use tokio::process::{Child, Command};
 use tokio::sync::mpsc;
 use tokio::time::{sleep, Duration};
 
+use super::heroku_cli::find_heroku_binary;
+
 pub struct StreamManager {
     app_name: String,
     process: Option<Child>,
@@ -30,11 +32,11 @@ impl StreamManager {
         // Kill existing process if any
         self.disconnect().await;
 
-        // Spawn heroku logs process
-        // Augment PATH so GUI apps can find Homebrew-installed heroku
-        let path = std::env::var("PATH").unwrap_or_default();
-        let gui_path = format!("/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:{}", path);
-        let mut child = Command::new("heroku")
+        // Spawn heroku logs process using absolute binary path so GUI apps
+        // don't rely on PATH resolution (which uses the parent's sparse PATH).
+        let base = std::env::var("PATH").unwrap_or_default();
+        let gui_path = format!("/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:{}", base);
+        let mut child = Command::new(find_heroku_binary())
             .env("PATH", gui_path)
             .arg("logs")
             .arg("--tail")

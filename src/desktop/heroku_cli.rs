@@ -18,23 +18,56 @@ fn gui_path() -> String {
     format!("/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:{}", base)
 }
 
-/// Returns a Command with an augmented PATH so GUI apps can find Homebrew binaries.
-fn cmd(program: &str) -> Command {
-    let mut c = Command::new(program);
+/// Find the heroku binary at known macOS install locations.
+/// Returns an absolute path if found, or "heroku" as fallback.
+/// This avoids relying on PATH resolution at spawn time, which uses the
+/// parent (GUI app) process's PATH rather than the augmented one we set.
+pub fn find_heroku_binary() -> String {
+    for path in &[
+        "/opt/homebrew/bin/heroku",
+        "/usr/local/bin/heroku",
+        "/usr/local/heroku/bin/heroku",
+    ] {
+        if std::path::Path::new(path).exists() {
+            return path.to_string();
+        }
+    }
+    "heroku".to_string()
+}
+
+/// Returns a Command for the heroku binary with an augmented PATH.
+fn heroku_cmd() -> Command {
+    let mut c = Command::new(find_heroku_binary());
     c.env("PATH", gui_path());
     c
 }
 
-/// Check if Heroku CLI is installed by running `heroku version`.
+/// Check if Heroku CLI is installed by probing known install paths.
 pub async fn check_cli_installed() -> Result<bool> {
-    let output = cmd("heroku").arg("version").output().await;
-    Ok(output.map(|o| o.status.success()).unwrap_or(false))
+    let known_paths = [
+        "/opt/homebrew/bin/heroku",
+        "/usr/local/bin/heroku",
+        "/usr/local/heroku/bin/heroku",
+    ];
+    if known_paths
+        .iter()
+        .any(|p| std::path::Path::new(p).exists())
+    {
+        return Ok(true);
+    }
+    // Fallback: try running heroku via augmented PATH
+    Ok(heroku_cmd()
+        .arg("version")
+        .output()
+        .await
+        .map(|o| o.status.success())
+        .unwrap_or(false))
 }
 
 /// Check if user is authenticated with Heroku
 /// Returns the authenticated user's email
 pub async fn check_authentication() -> Result<String> {
-    let output = cmd("heroku")
+    let output = heroku_cmd()
         .arg("auth:whoami")
         .output()
         .await
@@ -52,7 +85,7 @@ pub async fn check_authentication() -> Result<String> {
 
 /// Fetch list of Heroku apps for the authenticated user
 pub async fn fetch_apps() -> Result<Vec<AppInfo>> {
-    let output = cmd("heroku")
+    let output = heroku_cmd()
         .arg("apps")
         .arg("--all")
         .arg("--json")
@@ -75,7 +108,7 @@ pub async fn fetch_apps() -> Result<Vec<AppInfo>> {
 /// Opens the user's browser for OAuth. Returns the child process immediately
 /// — the caller is responsible for waiting on it.
 pub fn spawn_login() -> Result<tokio::process::Child> {
-    cmd("heroku")
+    heroku_cmd()
         .arg("login")
         .spawn()
         .context("Failed to spawn 'heroku login'")
