@@ -10,9 +10,24 @@ pub struct AppInfo {
     pub id: String,
 }
 
+/// Build a PATH string that includes common macOS install locations.
+/// GUI apps launched from the Dock/Finder don't inherit the user's shell PATH,
+/// so Homebrew-installed binaries (/opt/homebrew/bin, /usr/local/bin) are missing.
+fn gui_path() -> String {
+    let base = std::env::var("PATH").unwrap_or_default();
+    format!("/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:{}", base)
+}
+
+/// Returns a Command with an augmented PATH so GUI apps can find Homebrew binaries.
+fn cmd(program: &str) -> Command {
+    let mut c = Command::new(program);
+    c.env("PATH", gui_path());
+    c
+}
+
 /// Check if Heroku CLI is installed
 pub async fn check_cli_installed() -> Result<bool> {
-    let output = Command::new("which")
+    let output = cmd("which")
         .arg("heroku")
         .output()
         .await
@@ -24,7 +39,7 @@ pub async fn check_cli_installed() -> Result<bool> {
 /// Check if user is authenticated with Heroku
 /// Returns the authenticated user's email
 pub async fn check_authentication() -> Result<String> {
-    let output = Command::new("heroku")
+    let output = cmd("heroku")
         .arg("auth:whoami")
         .output()
         .await
@@ -42,7 +57,7 @@ pub async fn check_authentication() -> Result<String> {
 
 /// Fetch list of Heroku apps for the authenticated user
 pub async fn fetch_apps() -> Result<Vec<AppInfo>> {
-    let output = Command::new("heroku")
+    let output = cmd("heroku")
         .arg("apps")
         .arg("--all")
         .arg("--json")
@@ -65,8 +80,9 @@ pub async fn fetch_apps() -> Result<Vec<AppInfo>> {
 /// Opens the user's browser for OAuth. Returns the child process immediately
 /// — the caller is responsible for waiting on it.
 pub fn spawn_login() -> Result<tokio::process::Child> {
-    Command::new("heroku")
-        .arg("login")
+    let mut c = Command::new("heroku");
+    c.env("PATH", gui_path());
+    c.arg("login")
         .spawn()
         .context("Failed to spawn 'heroku login'")
 }

@@ -31,7 +31,11 @@ impl StreamManager {
         self.disconnect().await;
 
         // Spawn heroku logs process
+        // Augment PATH so GUI apps can find Homebrew-installed heroku
+        let path = std::env::var("PATH").unwrap_or_default();
+        let gui_path = format!("/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:{}", path);
         let mut child = Command::new("heroku")
+            .env("PATH", gui_path)
             .arg("logs")
             .arg("--tail")
             .arg("--app")
