@@ -10,7 +10,7 @@ A terminal UI application for parsing and filtering Heroku log streams with real
 - ✅ Heroku log format parsing (RFC5424 timestamps, source, dyno, message)
 - ✅ Log level detection (ERROR, WARN, INFO, DEBUG)
 - ✅ Circular buffer for log storage (10,000 entry default)
-- ✅ Comprehensive test coverage (42 passing tests)
+- ✅ Comprehensive test coverage (52 passing tests)
 
 **Phase 2: State Management**
 - ✅ The Elm Architecture (TEA) pattern with Message-based updates
@@ -54,15 +54,25 @@ A terminal UI application for parsing and filtering Heroku log streams with real
 
 ## Installation
 
+### Homebrew (recommended)
+
 ```bash
-# Build the TUI version
-cargo build --release --bin logs-parser-tui
+brew install --cask harveyalex/tap/logs-parser
+```
 
-# Build the desktop version
+### Download DMG
+
+Download the latest `logs-parser.dmg` from the [GitHub Releases](https://github.com/harveyalex/logs-parser/releases) page, open it, and drag the app to your Applications folder.
+
+### Build from source
+
+Requires [Rust](https://rustup.rs).
+
+```bash
+git clone https://github.com/harveyalex/logs-parser.git
+cd logs-parser
 cargo build --release --bin logs-parser-desktop
-
-# Run tests
-cargo test
+./target/release/logs-parser-desktop
 ```
 
 ## Usage
@@ -75,22 +85,31 @@ Run the desktop application:
 cargo run --release --bin logs-parser-desktop
 ```
 
+**Prerequisites:**
+- Heroku CLI installed (`brew install heroku/brew/heroku` or see heroku.com/cli)
+- Authenticated (`heroku login`)
+- Access to at least one Heroku app
+
 **Features:**
-- Native window interface
-- File picker to open log files
+- Live Heroku log streaming via Heroku CLI
+- App selection from authenticated account
 - Real-time filtering with text search, regex, and field filters
 - AND/OR filter logic toggle
 - Color-coded log levels
-- Export filtered logs to file
-- Copy filtered logs to clipboard
+- Auto-reconnection on failures (exponential backoff, 5 attempts)
+- Error messages for common setup issues (CLI missing, not authenticated)
+
+**Connection Flow:**
+1. App checks for Heroku CLI and authentication on startup
+2. Select app from dropdown
+3. Click "Connect" to start streaming
+4. Logs stream in real-time
+5. Apply filters to focus on specific logs
+6. Click "Disconnect" to stop streaming
 
 **Keyboard Shortcuts:**
-- `Ctrl+O` - Open log file
-- `Ctrl+C` - Copy filtered logs to clipboard
-- `Ctrl+S` - Export filtered logs to file
-- `Ctrl+Q` - Quit application
 - `C` - Clear all filters
-- `P` or `Space` - Pause/resume (placeholder for live streaming)
+- `Ctrl+Q` - Quit application
 
 ### Terminal App (TUI)
 
@@ -178,7 +197,7 @@ Run the full test suite:
 cargo test
 ```
 
-Current test coverage: **42 tests, 100% passing**
+Current test coverage: **52 tests, 100% passing**
 
 Test with sample logs:
 
@@ -230,27 +249,19 @@ This will show a live stream of logs with color-coded log levels.
 
 ## Known Issues
 
-1. **Time range filtering:** Not yet implemented (Phase 5)
-2. **Help screen:** Not yet implemented (press '?' will be added)
+1. **Time range filtering:** Not yet implemented in TUI (Phase 5)
+2. **Help screen:** Not yet implemented in TUI (press '?' will be added)
 
 ## Development Status
 
-**Current Phase:** Phase 5 (Partial) Complete ✅
+**Desktop App:** Streaming complete ✅
 
-The application successfully implements:
-- Full log parsing and display
-- Real-time filtering with text search and regex
-- Async event handling
-- Professional TUI with multiple view modes
-- **Clipboard support** - Copy filtered logs with Ctrl+C
-- **File export** - Save filtered logs to timestamped files with Ctrl+S
-- Comprehensive test coverage (51 tests)
-
-**Next Steps:**
-- Add time range filtering
-- Add help screen (press '?')
-- CLI arguments for configuration
-- Performance optimizations for high-volume streams
+The desktop application implements live Heroku log streaming:
+- Heroku CLI integration (check CLI, auth, fetch apps)
+- Live streaming via `heroku logs --tail`
+- Auto-reconnection with exponential backoff (5 attempts)
+- Real-time filtering with text search, regex, and field filters
+- Comprehensive test coverage (52 tests)
 
 ## Contributing
 
