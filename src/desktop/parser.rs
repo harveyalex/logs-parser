@@ -42,17 +42,6 @@ pub struct LogEntry {
 }
 
 impl LogEntry {
-    /// Get a formatted display string for the log entry
-    pub fn format_display(&self) -> String {
-        format!(
-            "{} {} [{}] {}",
-            self.timestamp.format("%H:%M:%S%.3f"),
-            self.source,
-            self.dyno,
-            self.message
-        )
-    }
-
     /// Get just the time portion formatted
     pub fn format_time(&self) -> String {
         self.timestamp.format("%H:%M:%S%.3f").to_string()
@@ -169,18 +158,6 @@ mod tests {
         let entry = parse_log_line(line).expect("Failed to parse");
 
         assert_eq!(entry.level, LogLevel::Debug);
-    }
-
-    #[test]
-    fn test_format_display() {
-        let line = "2010-09-16T15:13:46.677020+00:00 app[web.1]: Test message";
-        let entry = parse_log_line(line).expect("Failed to parse");
-
-        let display = entry.format_display();
-        assert!(display.contains("15:13:46"));
-        assert!(display.contains("app"));
-        assert!(display.contains("[web.1]"));
-        assert!(display.contains("Test message"));
     }
 
     #[test]
