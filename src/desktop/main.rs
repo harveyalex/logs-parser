@@ -1,13 +1,14 @@
 //! Desktop application entry point
 
 use dioxus::prelude::*;
-use logs_parser::filters::Filter;
-use logs_parser::parser::{LogEntry, LogLevel};
+use filters::Filter;
+use parser::{LogEntry, LogLevel};
 use regex::Regex;
 use std::sync::Arc;
 use tokio::sync::mpsc;
 
 mod components;
+mod filters;
 mod heroku_cli;
 mod parser;
 mod stream_manager;

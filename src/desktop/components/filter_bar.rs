@@ -1,7 +1,7 @@
 //! Filter bar component for adding and managing log filters
 
 use dioxus::prelude::*;
-use logs_parser::filters::Filter;
+use crate::filters::Filter;
 
 #[derive(Props, Clone, PartialEq)]
 pub struct FilterBarProps {

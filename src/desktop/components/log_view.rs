@@ -1,7 +1,7 @@
 //! Log view component for displaying filtered log entries
 
 use dioxus::prelude::*;
-use logs_parser::parser::{LogEntry, LogLevel};
+use crate::parser::{LogEntry, LogLevel};
 
 #[derive(Props, Clone, PartialEq)]
 pub struct LogViewProps {

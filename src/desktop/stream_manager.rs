@@ -1,8 +1,8 @@
 //! Stream manager for handling Heroku log streaming process lifecycle
 
 use anyhow::{Context, Result};
-use logs_parser::parser::parse_log_line;
-use logs_parser::parser::LogEntry;
+use crate::parser::parse_log_line;
+use crate::parser::LogEntry;
 use tokio::io::{AsyncBufReadExt, BufReader};
 use tokio::process::{Child, Command};
 use tokio::sync::mpsc;
