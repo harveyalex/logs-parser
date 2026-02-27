@@ -74,9 +74,11 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
         run: |
+          set -euo pipefail
           VERSION="${GITHUB_REF_NAME#v}"
-          FILE_SHA=$(gh api repos/harveyalex/homebrew-tap/contents/Casks/logs-parser.rb --jq '.sha')
-          CURRENT=$(gh api repos/harveyalex/homebrew-tap/contents/Casks/logs-parser.rb --jq '.content' | base64 -d)
+          RESPONSE=$(gh api repos/harveyalex/homebrew-tap/contents/Casks/logs-parser.rb)
+          FILE_SHA=$(echo "$RESPONSE" | jq -r '.sha')
+          CURRENT=$(echo "$RESPONSE" | jq -r '.content' | base64 -d)
           UPDATED=$(echo "$CURRENT" \
             | sed "s/  version \".*\"/  version \"$VERSION\"/" \
             | sed "s/  sha256 \".*\"/  sha256 \"${{ steps.sha.outputs.sha256 }}\"/" )
