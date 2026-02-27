@@ -60,9 +60,29 @@ jobs:
         run: cp "${{ steps.dmg.outputs.path }}" logs-parser.dmg
 
       - name: Compute SHA256
-        run: shasum -a 256 logs-parser.dmg
+        id: sha
+        run: |
+          SHA=$(shasum -a 256 logs-parser.dmg | awk '{print $1}')
+          echo "sha256=$SHA" >> "$GITHUB_OUTPUT"
 
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: logs-parser.dmg
+
+      - name: Update Homebrew tap
+        env:
+          GH_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          FILE_SHA=$(gh api repos/harveyalex/homebrew-tap/contents/Casks/logs-parser.rb --jq '.sha')
+          CURRENT=$(gh api repos/harveyalex/homebrew-tap/contents/Casks/logs-parser.rb --jq '.content' | base64 -d)
+          UPDATED=$(echo "$CURRENT" \
+            | sed "s/  version \".*\"/  version \"$VERSION\"/" \
+            | sed "s/  sha256 \".*\"/  sha256 \"${{ steps.sha.outputs.sha256 }}\"/" )
+          CONTENT=$(echo "$UPDATED" | base64 | tr -d '\n')
+          gh api repos/harveyalex/homebrew-tap/contents/Casks/logs-parser.rb \
+            --method PUT \
+            -f message="chore: update logs-parser to $VERSION" \
+            -f content="$CONTENT" \
+            -f sha="$FILE_SHA"
