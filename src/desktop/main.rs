@@ -9,6 +9,7 @@ use tokio::sync::mpsc;
 
 mod components;
 mod heroku_cli;
+mod parser;
 mod stream_manager;
 
 use components::{
