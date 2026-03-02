@@ -3,8 +3,25 @@
 use dioxus::prelude::*;
 
 #[derive(Clone, PartialEq)]
+pub enum LoadingStep {
+    CheckingCli,
+    VerifyingAuth,
+    FetchingApps,
+}
+
+impl LoadingStep {
+    pub fn index(&self) -> u8 {
+        match self {
+            LoadingStep::CheckingCli   => 0,
+            LoadingStep::VerifyingAuth => 1,
+            LoadingStep::FetchingApps  => 2,
+        }
+    }
+}
+
+#[derive(Clone, PartialEq)]
 pub enum ConnectionStatus {
-    Loading,
+    Loading(LoadingStep),
     Ready,
     Connecting,
     Streaming,
@@ -17,7 +34,7 @@ pub enum ConnectionStatus {
 #[component]
 pub fn StatusIndicator(status: ConnectionStatus) -> Element {
     let (text_class, dot_class, text) = match &status {
-        ConnectionStatus::Loading => (
+        ConnectionStatus::Loading(_) => (
             "status-warning",
             "status-dot status-dot-warning",
             "Loading...".to_string(),

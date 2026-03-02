@@ -14,7 +14,8 @@ mod parser;
 mod stream_manager;
 
 use components::{
-    ConnectionPanel, ConnectionStatus, FilterBar, LogView, StatsHeader, StatusIndicator,
+    ConnectionPanel, ConnectionStatus, FilterBar, LoadingStep, LogView, StatsHeader,
+    StatusIndicator,
 };
 use heroku_cli::{spawn_login, AppInfo};
 use stream_manager::StreamManager;
@@ -23,29 +24,37 @@ async fn init_heroku(
     mut connection_status: Signal<ConnectionStatus>,
     mut available_apps: Signal<Vec<AppInfo>>,
 ) {
+    connection_status.set(ConnectionStatus::Loading(LoadingStep::CheckingCli));
     match heroku_cli::check_cli_installed().await {
-        Ok(true) => match heroku_cli::check_authentication().await {
-            Ok(_email) => match heroku_cli::fetch_apps().await {
-                Ok(apps) => {
-                    if apps.is_empty() {
-                        connection_status
-                            .set(ConnectionStatus::Error("No Heroku apps found".to_string()));
-                    } else {
-                        available_apps.set(apps);
-                        connection_status.set(ConnectionStatus::Ready);
+        Ok(true) => {
+            connection_status.set(ConnectionStatus::Loading(LoadingStep::VerifyingAuth));
+            match heroku_cli::check_authentication().await {
+                Ok(_email) => {
+                    connection_status.set(ConnectionStatus::Loading(LoadingStep::FetchingApps));
+                    match heroku_cli::fetch_apps().await {
+                        Ok(apps) => {
+                            if apps.is_empty() {
+                                connection_status.set(ConnectionStatus::Error(
+                                    "No Heroku apps found".to_string(),
+                                ));
+                            } else {
+                                available_apps.set(apps);
+                                connection_status.set(ConnectionStatus::Ready);
+                            }
+                        }
+                        Err(e) => {
+                            connection_status.set(ConnectionStatus::Error(format!(
+                                "Failed to fetch apps: {}",
+                                e
+                            )));
+                        }
                     }
                 }
-                Err(e) => {
-                    connection_status.set(ConnectionStatus::Error(format!(
-                        "Failed to fetch apps: {}",
-                        e
-                    )));
+                Err(_) => {
+                    connection_status.set(ConnectionStatus::NotAuthenticated);
                 }
-            },
-            Err(_) => {
-                connection_status.set(ConnectionStatus::NotAuthenticated);
             }
-        },
+        }
         Ok(false) => {
             connection_status.set(ConnectionStatus::Error(
                 "Heroku CLI not found. Install from heroku.com/cli".to_string(),
@@ -138,7 +147,7 @@ fn parse_filter(input: &str) -> Option<Filter> {
 #[component]
 fn App() -> Element {
     // Connection state
-    let mut connection_status = use_signal(|| ConnectionStatus::Loading);
+    let mut connection_status = use_signal(|| ConnectionStatus::Loading(LoadingStep::CheckingCli));
     let available_apps = use_signal(Vec::<AppInfo>::new);
     let mut selected_app = use_signal(|| None::<String>);
     let mut stream_manager = use_signal(|| None::<Arc<tokio::sync::Mutex<StreamManager>>>);
