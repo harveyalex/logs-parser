@@ -31,14 +31,44 @@ pub enum ConnectionStatus {
     Error(String),
 }
 
+fn step_class(step_index: u8, current: u8) -> &'static str {
+    if step_index < current {
+        "loading-step-done"
+    } else if step_index == current {
+        "loading-step-active"
+    } else {
+        "loading-step-pending"
+    }
+}
+
+#[component]
+fn LoadingProgress(step: LoadingStep) -> Element {
+    let i = step.index();
+    rsx! {
+        div {
+            class: "loading-progress",
+            span { class: "{step_class(0, i)}", "Checking CLI" }
+            span { class: "loading-arrow", "→" }
+            span { class: "{step_class(1, i)}", "Verifying auth" }
+            span { class: "loading-arrow", "→" }
+            span { class: "{step_class(2, i)}", "Fetching apps" }
+        }
+    }
+}
+
 #[component]
 pub fn StatusIndicator(status: ConnectionStatus) -> Element {
-    let (text_class, dot_class, text) = match &status {
-        ConnectionStatus::Loading(_) => (
-            "status-warning",
-            "status-dot status-dot-warning",
-            "Loading...".to_string(),
-        ),
+    let (text_class, dot_class, text) = match status {
+        ConnectionStatus::Loading(step) => {
+            return rsx! {
+                div {
+                    class: "toolbar-bar",
+                    style: "display: flex; align-items: center; gap: 8px; padding: 8px 16px;",
+                    div { class: "status-dot status-dot-warning" }
+                    LoadingProgress { step }
+                }
+            };
+        }
         ConnectionStatus::Ready => (
             "status-dim",
             "status-dot status-dot-dim",
@@ -72,7 +102,7 @@ pub fn StatusIndicator(status: ConnectionStatus) -> Element {
         ConnectionStatus::Error(msg) => (
             "status-error",
             "status-dot status-dot-error",
-            msg.clone(),
+            msg,
         ),
     };
 
@@ -80,9 +110,7 @@ pub fn StatusIndicator(status: ConnectionStatus) -> Element {
         div {
             class: "toolbar-bar",
             style: "display: flex; align-items: center; gap: 8px; padding: 8px 16px;",
-
             div { class: "{dot_class}" }
-
             span {
                 class: "{text_class}",
                 style: "font-size: 14px; font-weight: 500;",

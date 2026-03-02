@@ -254,6 +254,25 @@ body {
 .status-error   { color: var(--danger); }
 .status-dim     { color: var(--text-dim); }
 
+/* ── Loading progress ── */
+.loading-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.loading-step-done    { color: var(--success); }
+.loading-step-active  { color: var(--warning); animation: pulse-opacity 1.2s ease-in-out infinite; }
+.loading-step-pending { color: var(--text-dim); }
+.loading-arrow        { color: var(--text-dim); }
+
+@keyframes pulse-opacity {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
+}
+
 /* ── Filter tag ── */
 .filter-tag {
     background: var(--bg-secondary);
